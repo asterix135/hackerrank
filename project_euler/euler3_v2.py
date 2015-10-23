@@ -1,6 +1,7 @@
 """
 2nd attempt to solve problem 3 quickly
-Method: find primes & test against given number
+Method: find primes to sqrt(num) & test each against given number
+also test for highest prime factor of quotient of num & test prime
 https://www.hackerrank.com/contests/projecteuler/challenges/euler003
 """
 
@@ -35,8 +36,8 @@ def find_largest_prime_factor(num):
             if num // factor > max_prime:
                 factor2_lg_prime = find_largest_prime_factor(num // factor)
                 if factor2_lg_prime > max_prime:
-                    max_prime = num // factor
-            elif factor > max_prime:
+                    max_prime = factor2_lg_prime
+            if factor > max_prime:
                 max_prime = factor
     if max_prime == 0:
         max_prime = num
@@ -76,15 +77,23 @@ def test_routine():
     """
     # with open('factor_answers.txt', 'r') as f:
     #     answers = f.readlines()
-    answers = [line.strip().split() for line in open('factor_answers.txt', 'r')]
-    print(len(answers))
+    answers = [[int(i) for i in line.strip().split()] for
+               line in open('factor_answers.txt', 'r')]
+    num_errors = 0
+    for test_num in answers:
+        this_answer = find_largest_prime_factor(test_num[0])
+        if this_answer != test_num[1]:
+            num_errors += 1
+            print('Fail for ' + str(test_num[0]) +
+                  '. Got: ' + str(this_answer) +
+                  '. Expected: ' + str(test_num[1]))
+    if num_errors == 0:
+        print('All tests passed')
     return answers
 
-    # graph_source = open(filename, 'r')
-    # graph_data = [[[int(line.split()[0])], [int(i) for i in line.split()[1:]]]
-    #               for line in graph_source]
 
+# test_routine()
 
-print(test_routine()[:5])
+# print(find_largest_prime_factor(4))
 
-# run_battery()
+run_battery()
