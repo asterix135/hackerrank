@@ -70,4 +70,21 @@ def run_battery():
     return all_large_prime_factors
 
 
-run_battery()
+def test_routine():
+    """
+    test against a range of primes
+    """
+    # with open('factor_answers.txt', 'r') as f:
+    #     answers = f.readlines()
+    answers = [line.strip().split() for line in open('factor_answers.txt', 'r')]
+    print(len(answers))
+    return answers
+
+    # graph_source = open(filename, 'r')
+    # graph_data = [[[int(line.split()[0])], [int(i) for i in line.split()[1:]]]
+    #               for line in graph_source]
+
+
+print(test_routine()[:5])
+
+# run_battery()

@@ -34,6 +34,8 @@ def find_largest_prime2(num):
     for a series of test cases, find and print the largest prime factor
     for each test case
     return list of largest prime factors
+    attempt to do this by keeping a list of factors and removing prime mults
+    ALSO - maybe try Pollard-Strassen???
     """
     test_prime = 2
     max_prime = 1
@@ -65,4 +67,13 @@ def run_battery():
     return all_large_prime_factors
 
 
-run_battery()
+def create_answers():
+    answers = []
+    for idx in range(10, 1000):
+        answers.append((idx, find_largest_prime_factor(idx)))
+    with open('factor_answers.txt', 'w') as of:
+        of.write('\n'.join('%s %s' %x for x in answers))
+
+create_answers()
+
+# run_battery()
