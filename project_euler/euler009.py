@@ -1,5 +1,6 @@
 """
 https://www.hackerrank.com/contests/projecteuler/challenges/euler009
+Need O(n)
 """
 
 # form a pythagorean triple summing to N
@@ -10,27 +11,9 @@ https://www.hackerrank.com/contests/projecteuler/challenges/euler009
 
 # smallest is 3, 4, 5; N=12, n=1, m=2
 
-"""
-https://www.hackerrank.com/contests/projecteuler/challenges/euler009
+import math
 
-Need O(n)
-"""
-
-
-def pythagorean_triplet(val1, sum_of_vals):
-    """
-    takes a sum of values and one test member of a potential pythagorean
-    triplet.  Tests to see whether there is a pythagorean triplet that sums
-    to the given sum and includes test_val.
-    Returns a tuple of (-1, -1, -1) if the condition cannot be met
-    or a tuple of 3 integers indicating the 3 triplet members (sum is 3rd)
-    """
-    pass
-
-# the difference between squares increases/decreases by 2 per +1 in both vals
-
-
-
+# this is not right
 def max_triplet(num):
     """
     For the given num, checks to see if there is a set of 3 integers
@@ -39,7 +22,21 @@ def max_triplet(num):
     Returns the highest product of integers that meet this condition
     or -1 if the condition cannot be met
     """
+    if num < 12:
+        return -1
     max_sum = -1
-    for a_num in range(2, num):
-        test_num = 0
+    # test if there is a perfect square
+    for n_factor in range(2, math.floor(math.sqrt(num))):
+        m_factor = num/(2 * n_factor) - n_factor
+        if m_factor == int(m_factor):
+            factor_product = ((n_factor**2 + 2 * n_factor * m_factor) *
+                              (2 * n_factor * m_factor) *
+                              (n_factor**2 + m_factor**2))
+            if factor_product > max_sum and factor_product > 0:
+                max_sum = int(factor_product)
+    return max_sum
 
+
+for i in range(12, 100):
+    print(i)
+    print(max_triplet(i))
